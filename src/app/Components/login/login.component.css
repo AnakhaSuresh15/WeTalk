@@ -1,0 +1,36 @@
+.flex-container { 
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: rgb(27, 67, 50);
+    padding: 0;
+ }
+ .left {
+     flex-grow: "1";
+     background-color: rgb(216, 243, 220);
+     width: 32%;
+     min-height: 85vh;
+     font-family: cursive;
+ }
+ .right {
+     flex-grow: "1";
+     background-color: white;
+     width: 30%;
+     min-height: 85vh;
+ }
+ .leftcontent {
+     padding: 20px;
+ }
+ .rightcontent {
+     font-family: cursive;
+     font-size: 30px;
+     margin-top: 40px;
+     margin-left: 40px;
+     margin-bottom: 10px;
+ }
+ .lefthead {
+     color: rgb(27, 67, 50);
+     font-size: 30px;
+ }

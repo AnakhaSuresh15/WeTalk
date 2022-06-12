@@ -2,46 +2,87 @@
     <div class="left">
         <div class="leftcontent">
             <b><div class="lefthead">WeTalk</div></b>
-            <p class="p1">Now your friends and family are just a click away!</p>
-            <br>
+            <p class="p1">Connect with ease..</p>
+            <br><br>
             <img src="../../assets/images/logo5.png" alt="image" class="center">
         </div>
     </div>
     <div class="right">
         <div class="rightcontent"><b>Sign Up to WeTalk</b>
-            <form [formGroup]="registrationForm">
-                <p class="p1">Already a member? <a href="">Login here</a></p>
-                <label for="fname" class="p2">First Name</label>
-                <input type="text" id="fname" formControlName="fname"/>
-                <!-- <span *ngIf="!fname.valid && (fname.touched || registerClicked)" class="error">
-                    Please provide a first name.
-                </span> -->
-                <br>
-                <label for="lname" class="p2">Last Name</label>
-                <input type="text" id="lname" formControlName="lname"/>
-                <!-- <span *ngIf="!lname?.valid && (lname?.touched || registerClicked)" class="error">
-                    Please provide a last name.
-                </span>-->
-                <br>
-                <label for="uname" class="p2">Username</label>
-                <input type="text" id="uname" formControlName="uname"/>
-                <!-- <span *ngIf="!uname?.valid && (uname?.touched || registerClicked)" class="error">
-                    Please provide a username.
-                </span>-->
-                <br> 
-                <label for="pword" class="p2">Password</label>
-                <input type="password" id="pword1" formControlName="pword1"/>
-                <!-- <span *ngIf="!pword1?.valid && (pword1?.touched || registerClicked)" class="error">
-                    Please provide a password.
-                </span>-->
-                <br>
-                <label for="pword" class="p2">Confirm Password</label>
-                <input type="password" id="pword2" formControlName="pword2"/>
-                <!-- <span *ngIf="!pword2?.valid && (pword2?.touched || registerClicked)" class="error">
-                    Please confirm the password.
-                </span>-->
-                <br> 
-                <button type="submit" value="Register" (click)="onRegister()">Register</button>
+            <form #regForm="ngForm" (ngSubmit)="onSubmit()" 
+            [appMatchPassword]="['pword1', 'pword2']" novalidate>
+                <p class="p1">Already a member? <a routerLink="/login">Login here</a></p>
+                <div class="form-row">
+                    <div class="form-group col-11">
+                        <label for="fname" class="p2">First Name</label>
+                        <input type="text" required name="fname" 
+                        [class.is-invalid]="fname.invalid && fname.touched" 
+                        [(ngModel)]="userModel.fname" #fname="ngModel" 
+                        class="form-control form-control-sm">
+                        <label for="error" *ngIf="(fname.touched || regForm.submitted) && fname.errors?.['required']"
+                        class="text-danger error">
+                            First name is required.</label>
+                    </div>
+                    <br *ngIf="fname.valid || fname.untouched">
+                    <div class="form-group col-11">
+                        <label for="lname" class="p2">Last Name</label>
+                        <input type="text" required name="lname" 
+                        [class.is-invalid]="lname.invalid && lname.touched" 
+                        [(ngModel)]="userModel.lname" #lname="ngModel" 
+                        class="form-control form-control-sm"/>
+                        <label for="error" *ngIf="(lname.touched || regForm.submitted) && lname.errors?.['required']" 
+                        class="text-danger error">
+                            Last name is required.</label>
+                    </div>
+                    <br *ngIf="lname.valid || lname.untouched">
+                    <div class="form-group col-11">
+                        <label for="uname" class="p2">Username</label>
+                        <input type="text" required name="uname" 
+                        [class.is-invalid]="uname.invalid && uname.touched" 
+                        [(ngModel)]="userModel.uname" #uname="ngModel" 
+                        class="form-control form-control-sm" appValidateUserName/>
+                        <label for="error" *ngIf="(uname.touched || regForm.submitted) && uname.errors?.['required']" 
+                        class="text-danger error">
+                            Please provide a username.</label>
+                        <label for="error" *ngIf="uname.touched && uname.errors?.['userNameNotAvailable']" 
+                        class="text-danger error">
+                        Username not available.</label>
+                    </div>
+                    <br *ngIf="uname.valid || uname.untouched">
+                    <div class="form-group col-11">
+                        <label for="pword" class="p2">Password</label>
+                        <input type="password" required name="pword1" appPasswordPattern
+                        [class.is-invalid]="pword1.invalid && pword1.touched" 
+                        [(ngModel)]="userModel.pword1" #pword1="ngModel" class="form-control form-control-sm"/>
+                        <div *ngIf="pword1.errors && (pword1.invalid && pword1.touched)">
+                            <label for="error" *ngIf="(pword1.touched || regForm.submitted) && pword1.errors?.['required']" class="text-danger error">
+                                Password cannot be blank.
+                            </label>
+                            <label for="error" *ngIf="pword1.touched && pword1.errors?.['invalidPassword']" class="text-danger error">
+                                Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase
+                                letter, 1 number and 1 special character.</label>
+                        </div>
+                    </div>
+                    <br *ngIf="pword1.valid || pword1.untouched">
+                    <div class="form-group col-11">
+                        <label for="pword" class="p2">Confirm Password</label>
+                        <input type="password" required name="pword2" 
+                        [class.is-invalid]="pword2.invalid && pword2.touched" 
+                        [(ngModel)]="userModel.pword2" #pword2="ngModel" 
+                        class="form-control form-control-sm"/>
+                        <label for="error" *ngIf="(pword2.touched || regForm.submitted) && pword2.errors?.['required']"
+                        class="text-danger error">
+                            Confirm Password is required.
+                        </label>
+                        <label for="error" *ngIf="pword2.touched && pword2.errors?.['passwordMismatch']" 
+                        class="text-danger error">
+                            Passwords do not match.
+                        </label>
+                    </div>
+                    <br *ngIf="pword2.valid || pword2.untouched">
+                    <button type="submit" value="submit" class="btn btn-sm" [disabled]="!regForm.valid">Register</button>
+                </div>
+                <app-login *ngIf="regForm.valid && regForm.submitted"></app-login>
             </form>
         </div>
     </div>

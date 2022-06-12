@@ -14,60 +14,63 @@ html {
 .left {
     flex-grow: "1";
     background-color: rgb(216, 243, 220);
-    width: 40%;
-    min-height: 80vh;
+    width: 32%;
+    min-height: 85vh;
     font-family: cursive;
 }
 .right {
     flex-grow: "1";
     background-color: white;
     width: 30%;
-    min-height: 80vh;
+    min-height: 85vh;
 }
-.leftcontent{
+.leftcontent {
     padding: 20px;
 }
 .rightcontent {
     font-family: cursive;
     font-size: 30px;
-    margin-top: 70px;
+    margin-top: 40px;
     margin-left: 40px;
+    margin-bottom: 10px;
 }
-.lefthead{
+.lefthead {
     color: rgb(27, 67, 50);
     font-size: 30px;
 }
-.p1{
+.p1 {
     color:rgb(157, 181, 178);
     font-size: 15px;
 }
 img {
     height: 200px;
-    width: 250px;
+    width: 260px;
 }
-.center{
+.center {
     display:block;
     margin-left: auto;
     margin-right: auto;
 }
-.p2{
+.p2 {
     color:rgb(157, 181, 178);
     font-size: 12px;
-    
 }
-label{
+label {
     display: block;
 }
-input{
+input {
     float: left;
     font-family: cursive;
-    height: 17px;
 }
-button{
+button {
     background-color: rgb(64, 145, 108);
     color:rgb(216, 243, 220);
     border-radius: 5px;
-    size: 15px;
     margin-left: 4px;
+    padding-bottom: 4px;
+}
+.error {
+    font-size: 12px;
+    padding-bottom: 1px;
 }
 

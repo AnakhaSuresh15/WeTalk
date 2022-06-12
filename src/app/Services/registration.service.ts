@@ -1,19 +1,62 @@
 import { Injectable } from '@angular/core';
+import { ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegistrationService {
+  usernamesList: string[] = [];
+  patternCheck(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } => {
+      if (!control.value) {
+        return null as any;
+      }
+      const regex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}$');
+      const valid = regex.test(control.value);
+      return valid ? null as any : { invalidPassword: true };
+    };
+  }
 
-  constructor() { }
-  addUser(user: any) {
-    let users: any[] = [];
-    if(localStorage.getItem('Users')) {
-      users = JSON.parse(localStorage.getItem('Users') as string);
-      users = [user, ...users];
-    } else {
-      users = [user];
+  MatchPassword(password: string, confirmPassword: string) {
+    return (formGroup: FormGroup) => {
+      const passwordControl = formGroup.controls[password];
+      const confirmPasswordControl = formGroup.controls[confirmPassword];
+
+      if (!passwordControl || !confirmPasswordControl) {
+        return null;
+      }
+
+      if (confirmPasswordControl.errors && !confirmPasswordControl.errors?.['passwordMismatch']) {
+        return null;
+      }
+
+      if (passwordControl.value !== confirmPasswordControl.value) {
+        confirmPasswordControl.setErrors({ passwordMismatch: true });
+      } else {
+        confirmPasswordControl.setErrors(null);
+      }
+      return null;
     }
-    localStorage.setItem('Users', JSON.stringify(users));
+  }
+
+  userNameCheck(userControl: AbstractControl) {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        if (this.validateUserName(userControl.value)) {
+          resolve({ userNameNotAvailable: true });
+        } else {
+          resolve(null);
+        }
+      }, 1000);
+    });
+  }
+
+  validateUserName(userName: string) {
+    return (this.usernamesList!.indexOf(userName) > -1);
+  }
+  addUserName(username: string) {
+    this.usernamesList.push(username);
+    console.log(this.usernamesList);
   }
 }
