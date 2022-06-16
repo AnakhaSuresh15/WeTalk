@@ -82,7 +82,6 @@
                     <br *ngIf="pword2.valid || pword2.untouched">
                     <button type="submit" value="submit" class="btn btn-sm" [disabled]="!regForm.valid">Register</button>
                 </div>
-                <app-login *ngIf="regForm.valid && regForm.submitted"></app-login>
             </form>
         </div>
     </div>

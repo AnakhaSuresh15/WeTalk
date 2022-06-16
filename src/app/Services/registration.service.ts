@@ -1,11 +1,24 @@
 import { Injectable } from '@angular/core';
 import { ValidatorFn, AbstractControl } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { take } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegistrationService {
+  constructor(private http: HttpClient) {
+    this.http.get('http://localhost:8000/userdata').pipe(take(1)).subscribe((res: any) => {
+      this.usernamesList = res.map(function (obj: any) {
+        return obj.uname;
+      });
+    });
+    this.http.get('http://localhost:8000/userdata').pipe(take(1)).subscribe((res: any) => {
+      console.log(res);
+    });
+   }
   usernamesList: string[] = [];
   patternCheck(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } => {
@@ -53,10 +66,13 @@ export class RegistrationService {
   }
 
   validateUserName(userName: string) {
-    return (this.usernamesList!.indexOf(userName) > -1);
+    return (this.usernamesList.indexOf(userName) > -1);
   }
-  addUserName(username: string) {
-    this.usernamesList.push(username);
-    console.log(this.usernamesList);
+
+  /*getUsernamesList(){
+    return this.http.get('http://localhost:8000/usernamesList');
   }
+  getUserData(){
+    return this.http.get('http://localhost:8000/userData');
+  }*/
 }

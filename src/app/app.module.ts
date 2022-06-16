@@ -12,6 +12,7 @@ import { MatchPasswordDirective } from './Directives/match-password.directive';
 import { ValidateUserNameDirective } from './Directives/validate-user-name.directive';
 import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { PageNotFoundComponent } from './Components/page-not-found/page-not-foun
     ReactiveFormsModule,
     AlertModule.forRoot(),
     AppRoutingModule,
+    HttpClientModule
   ],
   providers: [RegistrationService],
   bootstrap: [AppComponent]

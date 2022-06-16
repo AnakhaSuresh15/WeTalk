@@ -1,5 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RegistrationService } from 'src/app/Services/registration.service';
 import { User } from 'src/app/user';
@@ -17,9 +16,8 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit() {}
   onSubmit(){
-    console.log(this.userModel);
     this.users?.push(this.userModel);
-    this.registrationService.addUserName(this.userModel.uname);
-    this.router.navigateByUrl('/login');
+    this.router.navigate(['/login']);
   }
+
 }
