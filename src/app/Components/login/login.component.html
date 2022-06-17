@@ -1,10 +1,44 @@
 <div class="flex-container">
     <div class="left">
-        <div class="leftcontent">
-            <b><div class="lefthead">Login page</div></b>
-            <p class="p1">Login page</p>
+        <div class="content">
+            <img class="icon" width="45" height="40" src="../../assets/images/icon.png"/> 
+            <b>Login</b>
             <br><br>
-            <img src="../../assets/images/logo5.png" alt="image" class="center">
         </div>
+        <p class="p1">Welcome! Please login to continue.</p>
+        <br>
+        <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+                <div class="form-group col-11">
+                    <label for="fname" class="p2">Username</label>
+                    <input type="text" required name="uname" 
+                    [class.is-invalid]="uname.invalid && uname.touched" 
+                    [(ngModel)]="logindata.uname" #uname="ngModel" 
+                    class="form-control form-control-sm">
+                    <label for="error" *ngIf="(uname.touched || loginForm.submitted) && uname.errors?.['required']"
+                    class="text-danger error">
+                        Please enter the username.</label>
+                </div>
+                <br *ngIf="uname.valid || uname.untouched">
+                <br>
+                
+                <div class="form-group col-11">
+                    <label for="pword" class="p2">Password</label>
+                    <input type="password" required name="pword1" appPasswordPattern
+                    [class.is-invalid]="pword.invalid && pword.touched" 
+                    [(ngModel)]="logindata.pword" #pword="ngModel" class="form-control form-control-sm"/>
+                    <div *ngIf="pword.errors && (pword.invalid && pword.touched)">
+                        <label for="error" *ngIf="(pword.touched || loginForm.submitted) && pword.errors?.['required']" class="text-danger error">
+                            Please enter the password.
+                        </label>
+                    </div>
+                </div>
+                <br *ngIf="pword.valid || pword.untouched">
+                <br>
+                <button type="submit" value="submit" class="btn btn-sm" [disabled]="!loginForm.valid">Login</button>
+            </div>
+    </form>
+    <br>
+    <a routerLink="/register" class="p1">Go back to Registration page</a>
     </div>
 </div>

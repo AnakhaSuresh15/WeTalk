@@ -7,8 +7,7 @@ class User
         $data=DB::table('users')->get();
         return $data;
     }
-    function getUsernamesList() {
-        $data=DB::table('usernameslist')->get();
-        return $data;
+    function addUser($data) {
+        DB::table('users')->insert($data);
     }
 }

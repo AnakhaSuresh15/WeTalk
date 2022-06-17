@@ -10,14 +10,20 @@ import { User } from 'src/app/user';
 })
 export class RegistrationComponent implements OnInit {
   userModel = new User('','','','','');
-  users?: any[];
+  data =  new User('','','','','');
+  //users?: any[];
   constructor(private router: Router,
     private registrationService: RegistrationService) { }
 
   ngOnInit() {}
-  onSubmit(){
-    this.users?.push(this.userModel);
+  onSubmit() {
+    //this.users?.push(this.userModel);
+    this.data = this.userModel;
+    delete this.data.pword2;
+    console.log(this.data);
+    this.registrationService.insertUserData(this.data).subscribe((res: any) => {
+      return true;
+    });
     this.router.navigate(['/login']);
   }
-
 }

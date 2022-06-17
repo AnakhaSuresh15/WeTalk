@@ -7,4 +7,5 @@ Route::get('/', function () {
 });
 
 Route::get('/userdata', 'UserController@getUser');
-Route::get('/usernamesList', 'UsernamesController@getUsernamesList');
+Route::post('/adduser', 'UserController@addUser');
+

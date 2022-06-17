@@ -4,6 +4,6 @@ export class User {
         public lname: string,
         public uname: string,
         public pword1: string,
-        public pword2: string,
+        public pword2?: string,
     ) {}
 }

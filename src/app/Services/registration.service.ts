@@ -9,24 +9,25 @@ import { take } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class RegistrationService {
+  usernamesList: string[] = [];
   constructor(private http: HttpClient) {
+    this.getUsernamesList();
+   }
+
+  getUsernamesList() {
     this.http.get('http://localhost:8000/userdata').pipe(take(1)).subscribe((res: any) => {
       this.usernamesList = res.map(function (obj: any) {
         return obj.uname;
       });
     });
-    this.http.get('http://localhost:8000/userdata').pipe(take(1)).subscribe((res: any) => {
-      console.log(res);
-    });
-   }
-  usernamesList: string[] = [];
+  }
   patternCheck(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } => {
       if (!control.value) {
         return null as any;
       }
-      const regex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}$');
-      const valid = regex.test(control.value);
+      const regex = new RegExp('^.*(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])[a-zA-Z0-9@#$%^&+=]*$');
+      const valid = regex.test(control.value); 
       return valid ? null as any : { invalidPassword: true };
     };
   }
@@ -68,11 +69,7 @@ export class RegistrationService {
   validateUserName(userName: string) {
     return (this.usernamesList.indexOf(userName) > -1);
   }
-
-  /*getUsernamesList(){
-    return this.http.get('http://localhost:8000/usernamesList');
+  insertUserData(userModel: any) {
+    return this.http.post('http://localhost:8000/adduser', userModel)
   }
-  getUserData(){
-    return this.http.get('http://localhost:8000/userData');
-  }*/
 }
