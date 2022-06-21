@@ -21,11 +21,10 @@
                 </div>
                 <br *ngIf="uname.valid || uname.untouched">
                 <br>
-                
                 <div class="form-group col-11">
                     <label for="pword" class="p2">Password</label>
                     <input type="password" required name="pword1" appPasswordPattern
-                    [class.is-invalid]="pword.invalid && pword.touched" 
+                    [class.is-invalid]="pword.errors?.['required'] && pword.touched" 
                     [(ngModel)]="logindata.pword" #pword="ngModel" class="form-control form-control-sm"/>
                     <div *ngIf="pword.errors && (pword.invalid && pword.touched)">
                         <label for="error" *ngIf="(pword.touched || loginForm.submitted) && pword.errors?.['required']" class="text-danger error">

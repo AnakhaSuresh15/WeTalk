@@ -1,0 +1,26 @@
+.backdrop {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background: (0,0,0,0.75);
+    z-index: 50;
+}
+.alert-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    background-color: rgb(216, 243, 220);
+    top: 20vw;
+    width: 40vw;
+    padding: 30px;
+    background: #fff;
+    box-shadow: 0px 3px 8px rgba(0,0,0,0.5);
+    z-index: 100;
+}
+button {
+    background-color: rgb(64, 145, 108);
+    color:rgb(216, 243, 220);
+}

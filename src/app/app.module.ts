@@ -13,6 +13,8 @@ import { ValidateUserNameDirective } from './Directives/validate-user-name.direc
 import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginAlertComponent } from './Components/login/login-alert/login-alert.component';
+import { AlertDialogComponent } from './shared/alert-dialog/alert-dialog.component';
 
 @NgModule({
   declarations: [
@@ -22,8 +24,11 @@ import { HttpClientModule } from '@angular/common/http';
     PasswordPatternDirective,
     MatchPasswordDirective,
     ValidateUserNameDirective,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    LoginAlertComponent,
+    AlertDialogComponent,
   ],
+  entryComponents: [AlertDialogComponent],
   imports: [
     BrowserModule,
     FormsModule,
