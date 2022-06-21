@@ -17,27 +17,26 @@ import { LoginAlertComponent } from './Components/login/login-alert/login-alert.
 import { AlertDialogComponent } from './shared/alert-dialog/alert-dialog.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    RegistrationComponent,
-    LoginComponent,
-    PasswordPatternDirective,
-    MatchPasswordDirective,
-    ValidateUserNameDirective,
-    PageNotFoundComponent,
-    LoginAlertComponent,
-    AlertDialogComponent,
-  ],
-  entryComponents: [AlertDialogComponent],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AlertModule.forRoot(),
-    AppRoutingModule,
-    HttpClientModule
-  ],
-  providers: [RegistrationService],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        RegistrationComponent,
+        LoginComponent,
+        PasswordPatternDirective,
+        MatchPasswordDirective,
+        ValidateUserNameDirective,
+        PageNotFoundComponent,
+        LoginAlertComponent,
+        AlertDialogComponent,
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AlertModule.forRoot(),
+        AppRoutingModule,
+        HttpClientModule
+    ],
+    providers: [RegistrationService],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
