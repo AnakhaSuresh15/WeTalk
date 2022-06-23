@@ -5,5 +5,6 @@ export class User {
         public uname: string,
         public pword1: string,
         public pword2?: string,
+        public contactsList: string[] = [],
     ) {}
 }

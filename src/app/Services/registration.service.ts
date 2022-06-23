@@ -3,6 +3,8 @@ import { ValidatorFn, AbstractControl } from '@angular/forms';
 import { UntypedFormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { take } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { map, catchError } from 'rxjs/operators';
 
 
 @Injectable({
@@ -10,6 +12,9 @@ import { take } from 'rxjs/operators';
 })
 export class RegistrationService {
   usernamesList: string[] = [];
+  currentUsername?: string;
+  private userapiData = new BehaviorSubject<any>(null);
+  public userapiData$ = this.userapiData.asObservable();
   constructor(private http: HttpClient) {
     this.getUsernamesList();
    }
@@ -66,10 +71,42 @@ export class RegistrationService {
     });
   }
 
+  userNameAvailableCheck(userControl: AbstractControl) {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        console.log(this.validateUserName(userControl.value));
+        if (!this.validateUserName(userControl.value) || this.validateSameUsername(userControl.value)) {
+          resolve({ userNameAvailable: true });
+        } else {
+          resolve(null);
+        }
+      }, 1000);
+    });
+  }
+  setCurrentUsername(currentUsername: any) {
+    this.currentUsername = currentUsername;
+  }
+  getCurrentUsername() {
+    return this.currentUsername;
+  }
   validateUserName(userName: string) {
     return (this.usernamesList.indexOf(userName) > -1);
   }
+  validateSameUsername(userName: string) {
+    return (this.getCurrentUsername()===userName);
+  }
   insertUserData(userModel: any) {
-    return this.http.post('http://localhost:8000/adduser', userModel)
+    return this.http.post('http://localhost:8000/adduser', userModel);
+  }
+  getUserData() {
+    return this.http.get('http://localhost:8000/userdata').pipe(map((res: any) => {
+      return res;
+    }));
+  }
+  setUserData(data: any) { 
+    this.userapiData.next(data);
+  }
+  addContact(username: any, contact: any) {
+    return this.http.post('http://localhost:8000/addcontact', { username, contact });
   }
 }

@@ -23,7 +23,7 @@
                 <br>
                 <div class="form-group col-11">
                     <label for="pword" class="p2">Password</label>
-                    <input type="password" required name="pword1" appPasswordPattern
+                    <input type="password" required name="pword1"
                     [class.is-invalid]="pword.errors?.['required'] && pword.touched" 
                     [(ngModel)]="logindata.pword" #pword="ngModel" class="form-control form-control-sm"/>
                     <div *ngIf="pword.errors && (pword.invalid && pword.touched)">
@@ -34,7 +34,7 @@
                 </div>
                 <br *ngIf="pword.valid || pword.untouched">
                 <br>
-                <button type="submit" value="submit" class="btn btn-sm" [disabled]="!loginForm.valid">Login</button>
+                <button type="submit" value="submit" class="btn btn-sm" [disabled]="loginForm.invalid">Login</button>
             </div>
     </form>
     <br>

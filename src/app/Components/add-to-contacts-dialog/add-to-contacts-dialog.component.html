@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Add Contacts</h1>
+<div mat-dialog-content>
+  <p>Please enter the username of the contact you wish to add below.</p>
+  <mat-form-field appearance="fill">
+    <mat-label>Enter the username</mat-label>
+    <input matInput [(ngModel)]="data.contact" #contact="ngModel" [appValidateUserName]="'userNameAvailableCheck'">
+    <mat-error *ngIf="contact.errors?.['userNameAvailable']">
+      Enter a valid username!
+    </mat-error>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button style="margin-right:20px" class="mat-dialog-close-button"
+  [disabled]="!contact || contact.errors?.['userNameAvailable']" 
+  mat-button [mat-dialog-close]="contact" (click)="add()">Add</button>
+  <button class="mat-dialog-close-button" mat-button mat-dialog-close>Close</button>
+</div>

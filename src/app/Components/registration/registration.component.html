@@ -4,7 +4,7 @@
             <b><div class="lefthead">WeTalk</div></b>
             <p class="p1">Connect with ease..</p>
             <br><br>
-            <img src="../../assets/images/logo1.png" alt="image" class="center">
+            <img src="../../assets/images/logo1.png" class="center">
         </div>
     </div>
     <div class="right">
@@ -40,7 +40,7 @@
                         <input type="text" required name="uname" 
                         [class.is-invalid]="uname.invalid && uname.touched" 
                         [(ngModel)]="userModel.uname" #uname="ngModel" 
-                        class="form-control form-control-sm" appValidateUserName/>
+                        class="form-control form-control-sm" [appValidateUserName]="'userNameCheck'"/>
                         <label for="error" *ngIf="(uname.touched || regForm.submitted) && uname.errors?.['required']" 
                         class="text-danger error">
                             Please provide a username.</label>

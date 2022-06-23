@@ -8,4 +8,6 @@ Route::get('/', function () {
 
 Route::get('/userdata', 'UserController@getUser');
 Route::post('/adduser', 'UserController@addUser');
+Route::get('/contacts', 'ContactController@getContacts');
+Route::post('/addcontact', 'ContactController@addContacts');
 

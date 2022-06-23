@@ -11,13 +11,11 @@ import { User } from 'src/app/user';
 export class RegistrationComponent implements OnInit {
   userModel = new User('','','','','');
   data =  new User('','','','','');
-  //users?: any[];
   constructor(private router: Router,
     private registrationService: RegistrationService) { }
 
   ngOnInit() {}
   onSubmit() {
-    //this.users?.push(this.userModel);
     this.data = this.userModel;
     delete this.data.pword2;
     console.log(this.data);

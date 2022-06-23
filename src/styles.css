@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+.mat-dialog-title {
+    background-color: rgb(27, 67, 50);
+    color:rgb(216, 243, 220);
+    font-family: cursive;
+}
+.mat-dialog-close-button{
+    background-color: rgb(27, 67, 50);
+    color:rgb(216, 243, 220);
+}
+
+.custom-dialog-container .mat-dialog-container {
+    padding: 10px !important;
+}
