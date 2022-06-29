@@ -32,20 +32,21 @@
     display: inline-block;
     vertical-align: bottom;
  }
- .top-bar3 {
+ .top-bar4 {
    min-height: 7vh;
    width: 100%;
    background-color: rgb(216, 243, 220);
    margin-top: 15px;
    display: inline-block;
    margin-top: 0;
+   padding: 10px;
 }
  .logo {
    padding-top: 5px;
    padding-left: 5px;
  }
  .left {
-    min-height: 74vh;
+    height: 74vh;
     width: 40%;
     background-color: #EFF3FA;
     display: inline-block;
@@ -53,32 +54,52 @@
     overflow-y: scroll;
  }
  .right {
-    min-height: 74vh;
-    width: 60%;
+    position: absolute;
+    height: 74vh;
+    width: 45%;
     background-color: #FCFFFC;
     display: inline-block;
     vertical-align:top;
  }
  .btn {
    cursor: pointer;
-   background-color: transparent;
-   color: rgb(64, 145, 108);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 30px;
+   height: 30px;  
+   background-color: rgb(64, 145, 108);
+   color: #FCFFFC;
+   border-radius: 30px;
    border: none;
-   width: 30px;
+   padding: 0px;
    margin-top: 14px;
    margin-right: 15px;
-   height: 32px;
-   width: 30px;
-   margin-top: 14px;
-   margin-right: 15px;
-   height: 32px;
 }
-.btn:hover {
-   transform: scale(1.25) perspective(1px)
- }
+.sendbtn {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;  
+  background-color: rgb(64, 145, 108);
+  color: #FCFFFC;
+  border-radius: 30px;
+  border: none;
+  margin-bottom: 14px;
+  margin-left: 20px;
+  padding-top: 5px;
+}
+mat-icon{
+  font-size: 24px;
+}
+.sendicon {
+  font-size: 20px;
+}
  ul {
-   margin-top: 5px;
    padding: 0;
+   list-style: none;
  }
  .contactCard {
    width: 100%;
@@ -86,6 +107,8 @@
    background-color: rgb(216, 243, 220);
    border: none;
    border-bottom: 2px solid #FCFFFC;
+   border-left: 2px solid #FCFFFC;
+   border-right: 2px solid #FCFFFC;
    padding-top: 5px;
    outline: none;
    cursor: pointer;
@@ -95,15 +118,45 @@
    display: inline-block;
    width: 300px;
  }
- .msg1 {
-   background-color: #EFF3FA;
-   border-radius: 10px;
-   width: 20%;
+ .selectedCard {
+  background-color: rgb(64, 145, 108);
+  color: #FCFFFC;
  }
- .msg2 {
-   float: right;
-   background-color: rgb(27, 67, 50);
-   color: #FCFFFC;
-   border-radius: 10px;
-   width: 20%;
+ .messageList {
+  overflow-y: scroll;
+  height: 77%;
+ }
+ .messageInputbox {
+  position: absolute;
+  bottom: 0;
+  padding-left: 20px;
+  display: inline-block;
+ }
+ .sender {
+  text-align: right;
+ }
+ .sender-chat {
+  display: inline-block;
+  text-align: left; 
+  background-color: rgb(27, 67, 50);
+  color: #FCFFFC;
+  margin-right: 15px;
+  margin-top: 15px;
+  margin-bottom: 8px;
+  border-radius: 20px;
+  padding: 7px;
+ }
+ .receiver-chat {
+  display: inline-block;
+  background-color: rgb(159, 175, 168);
+  margin-left: 15px;
+  margin-top: 15px;
+  margin-bottom: 8px;
+  border-radius: 20px;
+  padding: 7px;
+ }
+ .no-content {
+  font-size: 20px;
+  margin-left: 20%;
+  margin-top: 27%;
  }

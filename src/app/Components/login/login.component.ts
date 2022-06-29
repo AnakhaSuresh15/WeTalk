@@ -34,11 +34,11 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     //this.http.get('http://localhost:8000/userdata').pipe(take(1)).subscribe((res: any) => {
       //this.userData = res; 
-    console.log(this.userData);
     for( var key in this.userData ) {
       var obj = this.userData[key];
       if(obj.uname===this.logindata.uname && obj.pword1===this.logindata.pword){
         this.dataFound = true;
+        this.registrationService.setCurrentUsername(obj.uname);
         this.router.navigate(['/chat', { currentUsername: obj.uname }]);
         break;
       } 

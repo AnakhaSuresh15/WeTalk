@@ -4,31 +4,73 @@
             <img src="../../assets/images/logo2.png" alt="image" class="logo" height="60px" width="75px">
         </div>
         <div class="top-bar2" >
-            <button class="btn btn" mat-button [matMenuTriggerFor]="menu" style="float: right;"><mat-icon>more_vert</mat-icon></button>
+            <button class="btn" mat-button [matMenuTriggerFor]="menu" style="float: right;"><mat-icon>more_vert</mat-icon></button>
             <mat-menu #menu="matMenu">
                 <button mat-menu-item>Menu Item 1</button>
                 <button mat-menu-item>Menu Item 2</button>
             </mat-menu>
         </div>
         <div class="left flex-child">
-            <mat-form-field class="search">
-                <input type="text" matInput placeholder="Search for contacts..">
-            </mat-form-field>
-            <button class="btn" mat-button style="float: right;" (click)="addToContacts()"><mat-icon>add</mat-icon></button>
-            <ul style="list-style-type:none">
-                <li *ngFor="let contact of contactList">
-                    <button class="contactCard" type="button" (click)="setSelectedContact(contact)">
-                        <span class="contact">{{contact.fname}} {{contact.lname}}</span>
-                    </button>
-                </li>
-            </ul>
-        </div>
-        <div class="right flex-child">
-            <div class="top-bar3">{{selectedContact?.fname}} {{selectedContact?.lname}}</div>
-            <div class="messages">
-                <div class="msg1">Hello!</div><br>
-                <div class="msg2">Hi!</div>
+            <div class="top-bar3">
+                <mat-form-field class="search">
+                    <input type="text" matInput placeholder="Search for contacts.." [(ngModel)]="searchWord"
+                    (keyup)="search()">
+                </mat-form-field>
+                <button class="btn" mat-button style="float: right;" (click)="addToContacts()">
+                    <mat-icon>add</mat-icon>
+                </button>
             </div>
+            <div [hidden]="searchWord">
+                <ul style="list-style-type:none">
+                    <li *ngFor="let contact of contactList">
+                        <button class="contactCard" type="button" (click)="setSelectedContact(contact)" 
+                        [ngClass]="{'selectedCard': selectedContact === contact}">
+                            <span class="contact">{{contact.fname}} {{contact.lname}}</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <div *ngIf="searchWord">
+                <ul style="list-style-type:none">
+                    <li *ngFor="let contact of searchList">
+                        <button class="contactCard" type="button" (click)="setSelectedContact(contact)" 
+                        [ngClass]="{'selectedCard': selectedContact === contact}">
+                            <span class="contact">{{contact.fname}} {{contact.lname}}</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="right flex-child" *ngIf="selectedContact">
+            <div class="top-bar4">{{selectedContact?.fname}} {{selectedContact?.lname}}</div>
+            <div class="messageList">
+                <div class="messages" *ngFor="let message of messageList">
+                    <div *ngIf="message">
+                        <div class="sender" *ngIf="message.receivingUser === selectedContact.uname">
+                            <div *ngIf="chatService.socketId === message.senderId" class="sender-chat"> 
+                                {{message.message}}
+                            </div>
+                        </div>
+                        <div class="receiver" *ngIf="message.receivingUser === currentUsername && 
+                        message.sendingUser === selectedContact.uname">
+                            <div *ngIf="chatService.socketId !== message.senderId" class="receiver-chat"> 
+                                {{message.message}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="messageInputbox">
+                <input type="text" placeholder="Message.." size="50px" [(ngModel)]="newMessage" 
+                (keyup)="$event.keyCode == 13 && newMessage && sendMessage()"/>
+                <button class="sendbtn" mat-button style="float: right;" (click)="newMessage && sendMessage()">
+                    <mat-icon class="sendicon">send</mat-icon></button>
+            </div>
+        </div>
+
+        <div class="right flex-child" *ngIf="!selectedContact">
+            <div class="top-bar4"></div>
+            <div class="no-content">Select a contact to start a converstation</div>
         </div>
     </div>
 </div>

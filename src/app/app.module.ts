@@ -20,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AddToContactsDialogComponent } from './Components/add-to-contacts-dialog/add-to-contacts-dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { ChatService } from './Services/chat.service';
 
 @NgModule({
     declarations: [
@@ -48,7 +49,8 @@ import { MatInputModule } from '@angular/material/input';
         MatFormFieldModule,
         MatInputModule,
     ],
-    providers: [RegistrationService],
+    providers: [RegistrationService,
+                ChatService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -74,7 +74,6 @@ export class RegistrationService {
   userNameAvailableCheck(userControl: AbstractControl) {
     return new Promise(resolve => {
       setTimeout(() => {
-        console.log(this.validateUserName(userControl.value));
         if (!this.validateUserName(userControl.value) || this.validateSameUsername(userControl.value)) {
           resolve({ userNameAvailable: true });
         } else {
