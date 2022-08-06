@@ -13,19 +13,6 @@ io.on('connection', (socket) => {
   socket.on('message', (data) => {
     io.emit('message', data);
   });
-
-  /*socket.on('user', (data) => {
-    let currentuser = data.currentuser;
-    let selecteduser = data.selecteduser;
-    let obj = {currentuser, selecteduser};
-    io.emit('user', obj);
-  });
-  socket.on('socketId', (data) => {
-    let message = data.message;
-    let socketId = data.socketId;
-    let obj = {message, socketId};
-    io.emit('socketId', obj);
-  });*/
   
   socket.on('disconnect', () => {
     console.log('a user disconnected!');

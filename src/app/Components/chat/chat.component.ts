@@ -10,6 +10,7 @@ import { AddToContactsDialogComponent } from '../add-to-contacts-dialog/add-to-c
 import * as io from 'socket.io-client';
 import { ChatService } from 'src/app/Services/chat.service';
 import { Message } from 'src/app/message';
+import { AddProfilePictureDialogComponent } from '../add-profile-picture-dialog/add-profile-picture-dialog.component';
 
 const SOCKET_ENDPOINT = 'localhost:3000';
 @Component({
@@ -24,6 +25,7 @@ export class ChatComponent implements OnInit {
   contactUsernameList: any[] = [];
   contactList: User[] = [];
   userData: any;
+  chatUserdata: any;
   selectedContact?: User;
   searchWord?: string;
   fnameList: string[] = [];
@@ -35,25 +37,28 @@ export class ChatComponent implements OnInit {
   messageList: any[] = [];
   loggedUser?: string;
   receivingUser?: string;
+  proPic: any;
   @ViewChild(MatMenuTrigger) triggerMenu!: MatMenuTrigger;
   constructor(private registrationService: RegistrationService,
     public dialog: MatDialog,
     public route: ActivatedRoute,
     public http: HttpClient,
     public chatService: ChatService,) {
-      if(localStorage.getItem('userData') === null) {
+      if(localStorage.getItem('userData') === 'null' || localStorage.length === 0) {
         registrationService.userapiData$.pipe(take(1)).subscribe(data => this.userData = data);
+        this.userData.forEach(function(item: any){ delete item.pword1 });
         localStorage.setItem('userData', JSON.stringify(this.userData));
+      }
+      else {
+        this.userData = JSON.parse(localStorage.getItem('userData') || '{}');
       }
       this.currentUsername = this.route.snapshot.paramMap.get('currentUsername');
     }
 
   ngOnInit(): void {
-    this.userData = JSON.parse(localStorage.getItem('userData')!);
     this.getContact();
     this.chatService.getNewMessage().subscribe((data: any) => {
       const obj = JSON.parse(JSON.stringify(data));
-      console.log(this.selectedContact);
       this.receivingUser = obj.receivingUser;
       this.messageList.push(obj);
     });
@@ -75,7 +80,6 @@ export class ChatComponent implements OnInit {
   }
   addToContacts() {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.panelClass = 'custom-dialog-container';
     dialogConfig.height = '300px';
     dialogConfig.width = '400px';
     dialogConfig.panelClass = 'custom-dialog-container';
@@ -107,18 +111,20 @@ export class ChatComponent implements OnInit {
     this.chatService.sendMessage(this.newMessage, this.selectedContact?.uname, this.currentUsername);
     this.newMessage = '';
   }
-
- /* sendMessage() {
-    this.socket.emit('message', this.sendMsg);
-    const element = document.createElement('li');
-    element.innerHTML = this.sendMsg;
-    element.style.background = '#EFF3FA';
-    element.style.padding = '5px 10px';
-    element.style.margin = '10px';
-    element.style.textAlign = 'right';
-    document.getElementById('messages')?.appendChild(element);
-    this.sendMsg = '';
-  }*/
-  /*selectedMenu(menuItem: any){
-  }*/
+  addProfilePic() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.height = '300px';
+    dialogConfig.width = '200px';
+    dialogConfig.panelClass = 'custom-dialog-container';
+    //dialogConfig.data = { contact: this.contact }
+    const dialogRef = this.dialog.open(AddProfilePictureDialogComponent, this.dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      this.proPic = result.data;
+      if(this.proPic !== undefined) {
+        /*this.registrationService.addContact(this.currentUsername, this.contact).subscribe((res: any) => {
+          this.getContact();
+        });*/
+      }
+    });
+  }
 }

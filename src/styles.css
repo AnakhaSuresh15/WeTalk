@@ -11,6 +11,8 @@
     color:rgb(216, 243, 220);
 }
 
-.custom-dialog-container .mat-dialog-container {
+.custom-dialog-container, .mat-dialog-container {
     padding: 10px !important;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
 }

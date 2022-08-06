@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Add Profile Photo</h1>
+<div mat-dialog-content>
+  <p>Browse and add the picture you wish to set as profile picture</p>
+  <div class="form-group">
+    <label for="file">Choose File</label> &NonBreakingSpace;
+    <input type="file"id="file" (change)="handleFileInput($event)"> 
+</div>
+</div>
+<div mat-dialog-actions>
+  <button style="margin-right:20px" class="mat-dialog-close-button" mat-button 
+  (click)="browseForPofilePic()">Browse</button><br>
+  <button class="mat-dialog-close-button" mat-button mat-dialog-close (click)="setProfilePic()">
+    Set as profile photo</button>
+</div>
+

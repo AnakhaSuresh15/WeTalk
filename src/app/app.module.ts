@@ -21,6 +21,7 @@ import { AddToContactsDialogComponent } from './Components/add-to-contacts-dialo
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ChatService } from './Services/chat.service';
+import { AddProfilePictureDialogComponent } from './Components/add-profile-picture-dialog/add-profile-picture-dialog.component';
 
 @NgModule({
     declarations: [
@@ -34,6 +35,7 @@ import { ChatService } from './Services/chat.service';
         AlertDialogComponent,
         ChatComponent,
         AddToContactsDialogComponent,
+        AddProfilePictureDialogComponent,
     ],
     entryComponents: [AlertDialogComponent],
     imports: [
