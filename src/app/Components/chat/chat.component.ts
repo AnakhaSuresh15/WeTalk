@@ -12,7 +12,7 @@ import { ChatService } from 'src/app/Services/chat.service';
 import { Message } from 'src/app/message';
 import { AddProfilePictureDialogComponent } from '../add-profile-picture-dialog/add-profile-picture-dialog.component';
 
-const SOCKET_ENDPOINT = 'localhost:3000';
+const SOCKET_ENDPOINT = '128.199.26.70:3000';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -45,8 +45,9 @@ export class ChatComponent implements OnInit {
     public http: HttpClient,
     public chatService: ChatService,) {
       if(localStorage.getItem('userData') === 'null' || localStorage.length === 0) {
-        registrationService.userapiData$.pipe(take(1)).subscribe(data => this.userData = data);
-        this.userData.forEach(function(item: any){ delete item.pword1 });
+        registrationService.getUserData().pipe(take(1)).subscribe(data => this.userData = data);
+        //registrationService.userapiData$.pipe(take(1)).subscribe(data => this.userData = data);
+        //this.userData.forEach(function(item: any){ delete item.pword1 });
         localStorage.setItem('userData', JSON.stringify(this.userData));
       }
       else {

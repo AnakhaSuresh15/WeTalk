@@ -16,16 +16,16 @@ export class RegistrationService {
   private userapiData = new BehaviorSubject<any>(null);
   public userapiData$ = this.userapiData.asObservable();
   constructor(private http: HttpClient) {
-    this.getUsernamesList();
-   }
+    //this.getUsernamesList();
+  }
 
-  getUsernamesList() {
+  /*getUsernamesList() {
     this.http.get('http://localhost:8000/userdata').pipe(take(1)).subscribe((res: any) => {
       this.usernamesList = res.map(function (obj: any) {
         return obj.uname;
       });
     });
-  }
+  }*/
   patternCheck(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } => {
       if (!control.value) {
@@ -101,6 +101,9 @@ export class RegistrationService {
     return this.http.get('http://localhost:8000/userdata').pipe(map((res: any) => {
       return res;
     }));
+  }
+  getUserLoginValidation(data: any) {
+    return this.http.get('http://localhost:8000/getuservalidation', { params: data });
   }
   setUserData(data: any) { 
     this.userapiData.next(data);
