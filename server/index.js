@@ -1,10 +1,14 @@
 const app = require('express')();
-const httpServer = require('http').createServer(app);
+const options = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+};
+const httpServer = require('https').createServer(options, app);
 const io = require('socket.io')(httpServer, {
   cors: {origin : '*'}
 });
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 
 io.on('connection', (socket) => {
   console.log('a user connected');

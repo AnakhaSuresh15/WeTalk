@@ -14,7 +14,7 @@ export class ChatService {
   public socketId: string = ''
   //public socketId$: BehaviorSubject<string> = new BehaviorSubject('');
   constructor() {
-    this.socket = io('http://128.199.26.70:3000');
+    this.socket = io('https://128.199.26.70:8000');
     this.socket.on('Id', (id)=>{
       this.socketId = id; 
     });
