@@ -70,7 +70,7 @@ export class ChatComponent implements OnInit {
     });*/
   }
   getContact() {
-    this.http.get('http://139.59.33.251/contacts/'+this.currentUsername).pipe(take(1)).subscribe((res: any) => {
+    this.http.get('https://139.59.33.251/contacts/'+this.currentUsername).pipe(take(1)).subscribe((res: any) => {
         const contactData = res;
         this.contactUsernameList = contactData.map(function(obj: any) {
           return obj.contact;

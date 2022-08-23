@@ -95,20 +95,20 @@ export class RegistrationService {
     return (this.getCurrentUsername()===userName);
   }
   insertUserData(userModel: any) {
-    return this.http.post('http://139.59.33.251/adduser', userModel);
+    return this.http.post('https://139.59.33.251/adduser', userModel);
   }
   getUserData() {
-    return this.http.get('http://139.59.33.251/userdata').pipe(map((res: any) => {
+    return this.http.get('https://139.59.33.251/userdata').pipe(map((res: any) => {
       return res;
     }));
   }
   getUserLoginValidation(data: any) {
-    return this.http.get('http://139.59.33.251/getuservalidation', { params: data });
+    return this.http.get('https://139.59.33.251/getuservalidation', { params: data });
   }
   setUserData(data: any) { 
     this.userapiData.next(data);
   }
   addContact(username: any, contact: any) {
-    return this.http.post('http://139.59.33.251/addcontact', { username, contact });
+    return this.http.post('https://139.59.33.251/addcontact', { username, contact });
   }
 }
