@@ -1,16 +1,18 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" 
+          href=
+"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="flex-container">
     <div class="content">
         <div class="top-bar1" >
             <img src="../../assets/images/logo2.png" alt="image" class="logo" height="60px" width="75px">
-        </div>
-        <div class="top-bar2" >
             <button class="btn" mat-button [matMenuTriggerFor]="menu" style="float: right;"><mat-icon>more_vert</mat-icon></button>
             <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="addProfilePic()">Add Profile Photo</button>
                 <button mat-menu-item>Menu Item 2</button>
             </mat-menu>
         </div>
-        <div class="left flex-child">
+        <div class="left flex-child" *ngIf="(mobileView && !selectedContact) || !mobileView">
             <div class="top-bar3">
                 <mat-form-field class="search">
                     <input type="text" matInput placeholder="Search for contacts.." [(ngModel)]="searchWord"
@@ -25,7 +27,8 @@
                     <li *ngFor="let contact of contactList">
                         <button class="contactCard" type="button" (click)="setSelectedContact(contact)" 
                         [ngClass]="{'selectedCard': selectedContact === contact}">
-                        <img src="{{'https://drive.google.com/uc?export=view&id=' + contact.profilepic}}"
+                        <img src="{{'https://firebasestorage.googleapis.com/v0/b/wetalk-firebase.appspot.com/o/' + 
+                        contact.profilepic}}"
                         class="contactImage"><div class="contact">{{contact.fname}} {{contact.lname}}</div>
                         </button>
                     </li>
@@ -42,8 +45,23 @@
                 </ul>
             </div>
         </div>
-        <div class="right flex-child" *ngIf="selectedContact">
-            <div class="top-bar4">{{selectedContact?.fname}} {{selectedContact?.lname}}</div>
+        <div class="flex-child" *ngIf="selectedContact" [ngClass]="mobileView ? 'rightPanelMobile': 'right'">
+            <div class="top-bar4" style="max-height: 65px; padding: 5px;">
+                <div *ngIf="mobileView" style="float: left;">
+                    <button class="btn" style="margin-top: 8px; margin-right: 12px; margin-left: 0px;" 
+                    mat-button (click)="addToContacts()">
+                        <mat-icon>arrow_back</mat-icon>
+                    </button>
+                </div>
+                <div *ngIf="mobileView" style="margin-top: 11px; display: inline-block"
+                >{{selectedContact.fname}} {{selectedContact.lname}}</div>
+                <div *ngIf="!mobileView" style="margin-top: 3px; display: inline-block"
+                >{{selectedContact.fname}} {{selectedContact.lname}}</div>
+                <div *ngIf="mobileView" style="float: right;">
+                    <img src="{{'https://firebasestorage.googleapis.com/v0/b/wetalk-firebase.appspot.com/o/' + 
+                    selectedContact.profilepic}}" style="width: 50px; height: 50px; border-radius: 50%;">
+                </div>
+            </div>
             <div class="messageList">
                 <div class="messages" *ngFor="let message of messageList">
                     <div *ngIf="message">
@@ -62,14 +80,19 @@
                 </div>
             </div>
             <div class="messageInputbox">
-                <input type="text" placeholder="Message.." size="50px" [(ngModel)]="newMessage" 
-                (keyup)="$event.keyCode == 13 && newMessage && sendMessage()"/>
-                <button class="sendbtn" mat-button style="float: right;" (click)="newMessage && sendMessage()">
-                    <mat-icon class="sendicon">send</mat-icon></button>
+                <mat-form-field style="width: 65%">
+                    <input type="text" matInput placeholder="Message.." [(ngModel)]="newMessage" 
+                    (keyup)="$event.keyCode == 13 && newMessage && sendMessage()"/>
+                </mat-form-field>
+                <div style="float: right;">
+                    <button class="filebtn"><i class="fa fa-paperclip icon"></i></button>
+                    <button class="btn" style="margin-left: 45px;" mat-button (click)="newMessage && sendMessage()">
+                        <mat-icon class="sendicon" style="margin-top: 3px;">send</mat-icon></button>
+                </div>
             </div>
         </div>
 
-        <div class="right flex-child" *ngIf="!selectedContact">
+        <div class="rightNoContact flex-child" *ngIf="!selectedContact">
             <div class="top-bar4"></div>
             <div class="no-content">Select a contact to start a converstation</div>
         </div>

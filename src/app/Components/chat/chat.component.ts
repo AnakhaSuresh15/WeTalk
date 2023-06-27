@@ -1,5 +1,5 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatMenuModule, MatMenuTrigger} from '@angular/material/menu';
 import { ActivatedRoute } from '@angular/router';
@@ -12,7 +12,7 @@ import { ChatService } from 'src/app/Services/chat.service';
 import { Message } from 'src/app/message';
 import { AddProfilePictureDialogComponent } from '../add-profile-picture-dialog/add-profile-picture-dialog.component';
 
-const SOCKET_ENDPOINT = '128.199.26.70:3000';
+const SOCKET_ENDPOINT = 'localhost:3000';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -38,17 +38,21 @@ export class ChatComponent implements OnInit {
   loggedUser?: string;
   receivingUser?: string;
   proPic: any;
+  innerWidth: any;
+  mobileView: boolean = true;
   @ViewChild(MatMenuTrigger) triggerMenu!: MatMenuTrigger;
   constructor(private registrationService: RegistrationService,
     public dialog: MatDialog,
     public route: ActivatedRoute,
     public http: HttpClient,
     public chatService: ChatService,) {
-      if(localStorage.getItem('userData') === 'null' || localStorage.length === 0) {
-        registrationService.getUserData().pipe(take(1)).subscribe(data => this.userData = data);
+      if(localStorage.getItem('userData') === 'null' || localStorage.getItem('userData') === 'undefined') {
+        registrationService.getUserData().pipe(take(1)).subscribe(data => {
+          this.userData = data;
+          localStorage.setItem('userData', JSON.stringify(this.userData));
+        });
         //registrationService.userapiData$.pipe(take(1)).subscribe(data => this.userData = data);
         //this.userData.forEach(function(item: any){ delete item.pword1 });
-        localStorage.setItem('userData', JSON.stringify(this.userData));
       }
       else {
         this.userData = JSON.parse(localStorage.getItem('userData') || '{}');
@@ -57,6 +61,8 @@ export class ChatComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.innerWidth = window.innerWidth;
+    this.mobileView = (this.innerWidth<800) ? true : false;
     this.getContact();
     this.chatService.getNewMessage().subscribe((data: any) => {
       const obj = JSON.parse(JSON.stringify(data));
@@ -69,8 +75,13 @@ export class ChatComponent implements OnInit {
       this.selectedUser =  obj.selecteduser;
     });*/
   }
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.innerWidth = window.innerWidth;
+    this.mobileView = (this.innerWidth<800) ? true : false;
+  }
   getContact() {
-    this.http.get('https://139.59.33.251/contacts/'+this.currentUsername).pipe(take(1)).subscribe((res: any) => {
+    this.http.get('http://localhost:8000/contacts/'+this.currentUsername).pipe(take(1)).subscribe((res: any) => {
         const contactData = res;
         this.contactUsernameList = contactData.map(function(obj: any) {
           return obj.contact;
@@ -117,8 +128,12 @@ export class ChatComponent implements OnInit {
     dialogConfig.height = '300px';
     dialogConfig.width = '200px';
     dialogConfig.panelClass = 'custom-dialog-container';
-    //dialogConfig.data = { contact: this.contact }
-    const dialogRef = this.dialog.open(AddProfilePictureDialogComponent, this.dialogConfig);
+    dialogConfig.data = { username: this.currentUsername }
+    const dialogRef = this.dialog.open(AddProfilePictureDialogComponent, {
+      data: {
+        username: this.currentUsername
+      }
+    });
     dialogRef.afterClosed().subscribe(result => {
       this.proPic = result.data;
       if(this.proPic !== undefined) {

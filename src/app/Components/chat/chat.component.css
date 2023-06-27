@@ -18,20 +18,11 @@
  }
  .top-bar1 {
    min-height: 10vh;
-   width: 40%;
+   width: 100%;
    background-color: #EFFAF1;
    margin-top: 15px;
-   display: inline-block;
    vertical-align: bottom;
 }
- .top-bar2 {
-    min-height: 10vh;
-    width: 60%;
-    background-color: #EFFAF1;
-    margin-top: 15px;
-    display: inline-block;
-    vertical-align: bottom;
- }
  .top-bar4 {
    min-height: 7vh;
    width: 100%;
@@ -40,6 +31,12 @@
    display: inline-block;
    margin-top: 0;
    padding: 10px;
+   vertical-align: middle;
+}
+.top-bar3 {
+  display: inline-block;
+  padding-left: 1vw;
+  width: 100%;
 }
  .logo {
    padding-top: 5px;
@@ -61,6 +58,14 @@
     display: inline-block;
     vertical-align:top;
  }
+ .rightNoContact {
+    position: absolute;
+    height: 74vh;
+    width: 45%;
+    background-color: #FCFFFC;
+    display: inline-block;
+    vertical-align:top;
+ }
  .btn {
    cursor: pointer;
    display: flex;
@@ -75,27 +80,10 @@
    padding: 0px;
    margin-top: 14px;
    margin-right: 15px;
-}
-.sendbtn {
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  height: 30px;  
-  background-color: rgb(64, 145, 108);
-  color: #FCFFFC;
-  border-radius: 30px;
-  border: none;
-  margin-bottom: 14px;
-  margin-left: 20px;
-  padding-top: 5px;
-}
-mat-icon{
-  font-size: 24px;
+   margin-left: 15px;
 }
 .sendicon {
-  font-size: 20px;
+  font-size: 1.2em;
 }
  ul {
    padding: 0;
@@ -103,7 +91,7 @@ mat-icon{
  }
  .contactCard {
    width: 100%;
-   height: 70px;
+   height: 15%;
    background-color: rgb(216, 243, 220);
    border: none;
    border-bottom: 2px solid #FCFFFC;
@@ -116,7 +104,7 @@ mat-icon{
  .search {
    padding-left: 20px;
    display: inline-block;
-   width: 300px;
+   width: 70%;
  }
  .selectedCard {
   background-color: rgb(64, 145, 108);
@@ -127,10 +115,11 @@ mat-icon{
   height: 77%;
  }
  .messageInputbox {
-  position: absolute;
   bottom: 0;
-  padding-left: 20px;
-  display: inline-block;
+  padding-left: 10px;
+  display: block;
+  width: 100%;
+  position: relative;
  }
  .sender {
   text-align: right;
@@ -173,3 +162,32 @@ mat-icon{
   float: left;
   margin-top: 8px;
  }
+.filebtn {
+  cursor: pointer;
+  width: 5%;
+  height: 30px;  
+  background-color: #FCFFFC;
+  color: #000;
+  border-radius: 30px;
+  border: none;
+  position: absolute;
+  margin-top: 15px;
+  margin-left: 2px;
+}
+@media screen and (max-width: 800px) {
+  .left {
+    width: 100%; 
+  }
+  .rightNoContact {
+    display: none;
+  }
+  .messageInputbox {
+    margin-top: -10px;
+  }
+}
+.rightPanelMobile {
+    height: 74vh;
+    width: 100%;
+    background-color: #FCFFFC;
+    display: inline-block;
+}

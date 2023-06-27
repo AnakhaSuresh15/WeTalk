@@ -16,16 +16,14 @@ export class RegistrationService {
   private userapiData = new BehaviorSubject<any>(null);
   public userapiData$ = this.userapiData.asObservable();
   constructor(private http: HttpClient) {
-    //this.getUsernamesList();
+    this.getUsernamesList();
   }
 
-  /*getUsernamesList() {
-    this.http.get('http://localhost:8000/userdata').pipe(take(1)).subscribe((res: any) => {
-      this.usernamesList = res.map(function (obj: any) {
-        return obj.uname;
-      });
-    });
-  }*/
+  getUsernamesList() {
+    this.getUserData().pipe(take(1)).subscribe(data => {
+      this.usernamesList = data.map((obj: any) => obj.uname);
+  });
+  }
   patternCheck(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } => {
       if (!control.value) {
@@ -95,20 +93,20 @@ export class RegistrationService {
     return (this.getCurrentUsername()===userName);
   }
   insertUserData(userModel: any) {
-    return this.http.post('https://139.59.33.251/adduser', userModel);
+    return this.http.post('http://localhost:8000/adduser', userModel);
   }
   getUserData() {
-    return this.http.get('https://139.59.33.251/userdata').pipe(map((res: any) => {
+    return this.http.get('http://localhost:8000/userdata').pipe(map((res: any) => {
       return res;
     }));
   }
   getUserLoginValidation(data: any) {
-    return this.http.get('https://139.59.33.251/getuservalidation', { params: data });
+    return this.http.get('http://localhost:8000/getuservalidation', { params: data });
   }
   setUserData(data: any) { 
     this.userapiData.next(data);
   }
   addContact(username: any, contact: any) {
-    return this.http.post('https://139.59.33.251/addcontact', { username, contact });
+    return this.http.post('http://localhost:8000/addcontact', { username, contact });
   }
 }

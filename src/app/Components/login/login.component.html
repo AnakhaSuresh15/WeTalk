@@ -1,3 +1,4 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <div class="flex-container">
     <div class="left">
         <div class="content">
@@ -32,11 +33,11 @@
                         </label>
                     </div>
                 </div>
-                <br *ngIf="pword.valid || pword.untouched">
-                <br>
-                <button type="submit" value="submit" class="btn btn-sm" [disabled]="loginForm.invalid">Login</button>
             </div>
-    </form>
+            <br *ngIf="pword.valid || pword.untouched">
+            <br>
+            <button type="submit" value="submit" class="btn btn-sm center" [disabled]="loginForm.invalid">Login</button>
+        </form>
     <br>
     <a routerLink="/register" class="p1">Go back to Registration page</a>
     </div>

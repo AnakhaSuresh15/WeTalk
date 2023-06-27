@@ -22,6 +22,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ChatService } from './Services/chat.service';
 import { AddProfilePictureDialogComponent } from './Components/add-profile-picture-dialog/add-profile-picture-dialog.component';
+import { FileUploadService } from './Services/file-upload.service';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFireModule } from '@angular/fire/compat';
+
 
 @NgModule({
     declarations: [
@@ -50,9 +54,19 @@ import { AddProfilePictureDialogComponent } from './Components/add-profile-pictu
         MatIconModule,
         MatFormFieldModule,
         MatInputModule,
+        AngularFireModule.initializeApp({
+            apiKey: "AIzaSyCgdQF6mwRahRVe8Iax_qF5PJWCy1gKNW8",
+            authDomain: "wetalk-firebase.firebaseapp.com",
+            projectId: "wetalk-firebase",
+            storageBucket: "wetalk-firebase.appspot.com",
+            messagingSenderId: "615099533186",
+            appId: "1:615099533186:web:ecdaccacd46f494d0ff19b"
+        }),
+        AngularFireStorageModule
     ],
     providers: [RegistrationService,
-                ChatService],
+                ChatService,
+                FileUploadService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
