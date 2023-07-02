@@ -65,13 +65,13 @@
             <div class="messageList">
                 <div class="messages" *ngFor="let message of messageList">
                     <div *ngIf="message">
-                        <div class="sender" *ngIf="message.receivingUser === selectedContact.uname">
+                        <div class="sender" *ngIf="message.receiver === selectedContact.uname">
                             <div *ngIf="chatService.socketId === message.senderId" class="sender-chat"> 
                                 {{message.message}}
                             </div>
                         </div>
-                        <div class="receiver" *ngIf="message.receivingUser === currentUsername && 
-                        message.sendingUser === selectedContact.uname">
+                        <div class="receiver" *ngIf="message.receiver === currentUsername && 
+                        message.sender === selectedContact.uname">
                             <div *ngIf="chatService.socketId !== message.senderId" class="receiver-chat"> 
                                 {{message.message}}
                             </div>

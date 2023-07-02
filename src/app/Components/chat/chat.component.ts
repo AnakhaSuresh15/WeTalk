@@ -11,6 +11,9 @@ import * as io from 'socket.io-client';
 import { ChatService } from 'src/app/Services/chat.service';
 import { Message } from 'src/app/message';
 import { AddProfilePictureDialogComponent } from '../add-profile-picture-dialog/add-profile-picture-dialog.component';
+import { FirebaseApp, initializeApp } from 'firebase/app';
+import { Database, getDatabase, ref, set, onValue  } from "firebase/database";
+import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 
 const SOCKET_ENDPOINT = 'localhost:3000';
 @Component({
@@ -34,12 +37,15 @@ export class ChatComponent implements OnInit {
   lowercaseUserData: any = [];
   lowercaseObject = new User('','','','','');
   newMessage?: string;
-  messageList: any[] = [];
+  messageList: Message[] = [];
   loggedUser?: string;
-  receivingUser?: string;
+  receiver?: string;
   proPic: any;
   innerWidth: any;
   mobileView: boolean = true;
+  app?: FirebaseApp;
+  db?: Database;
+  form?: FormGroup;
   @ViewChild(MatMenuTrigger) triggerMenu!: MatMenuTrigger;
   constructor(private registrationService: RegistrationService,
     public dialog: MatDialog,
@@ -66,7 +72,7 @@ export class ChatComponent implements OnInit {
     this.getContact();
     this.chatService.getNewMessage().subscribe((data: any) => {
       const obj = JSON.parse(JSON.stringify(data));
-      this.receivingUser = obj.receivingUser;
+      this.receiver = obj.receiver;
       this.messageList.push(obj);
     });
     /*this.chatService.getUser().subscribe((data: any) => {

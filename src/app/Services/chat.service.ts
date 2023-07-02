@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import io, { Socket } from "socket.io-client";
+import { DatePipe } from '@angular/common';
 
 
 @Injectable({
@@ -11,9 +12,9 @@ export class ChatService {
   public message$: BehaviorSubject<string> = new BehaviorSubject('');
   public user$: BehaviorSubject<string> = new BehaviorSubject('');
   public socket: Socket;
-  public socketId: string = ''
+  public socketId: string = '';
   //public socketId$: BehaviorSubject<string> = new BehaviorSubject('');
-  constructor() {
+  constructor(private datepipe: DatePipe) {
     this.socket = io('http://localhost:3000');
     this.socket.on('Id', (id)=>{
       this.socketId = id; 
@@ -22,8 +23,10 @@ export class ChatService {
 
   //socket = io.connect('http://localhost:3000');
 
-  public sendMessage(message: any, receivingUser: any, sendingUser: any) {
-    this.socket.emit('message',{message: message, receivingUser: receivingUser, sendingUser: sendingUser, senderId : this.socketId});
+  public sendMessage(message: any, receiver: any, sender: any) {
+    let currentDateTime =this.datepipe.transform((new Date), 'MM/dd/yyyy hh:mm:ss');
+    this.socket.emit('message',{message: message, receiver: receiver, sender: sender, dateStamp: currentDateTime,
+      senderId: this.socketId});
   }
   public setUser(selecteduser: string) {
     this.socket.emit('user', {

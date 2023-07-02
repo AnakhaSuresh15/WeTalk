@@ -25,6 +25,7 @@ import { AddProfilePictureDialogComponent } from './Components/add-profile-pictu
 import { FileUploadService } from './Services/file-upload.service';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireModule } from '@angular/fire/compat';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -66,7 +67,8 @@ import { AngularFireModule } from '@angular/fire/compat';
     ],
     providers: [RegistrationService,
                 ChatService,
-                FileUploadService],
+                FileUploadService,
+                DatePipe],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
