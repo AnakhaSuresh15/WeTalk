@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "wetalk-firebase"
-  }
+    "default": "wetalk-firebase",
+    "wetalk\\": "wetalk-firebase"
+  },
+  "targets": {},
+  "etags": {}
 }
