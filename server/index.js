@@ -20,9 +20,9 @@ app.get('/', function (req, res) {
   res.send('Hi');
 });
 
-app.use(userRouter);
-app.use(contactRouter);
-app.use(imageRouter);
+app.use( '/', userRouter);
+app.use( '/', contactRouter);
+app.use( '/',imageRouter);
 
 const startServer = async () => {
   try {
