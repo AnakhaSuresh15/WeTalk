@@ -6,13 +6,13 @@
     min-height: 100vh;
     background-color:  rgb(27, 67, 50);
     padding: 0;
-    font-family: cursive;
+    font-family: sans-serif;
  }
  .content {
      flex-grow: "1";
      width: 75%;
      min-height: 83vh;
-     font-family: cursive;
+     font-family: sans-serif;
      border-radius: 10px;
      overflow:hidden;
  }
@@ -30,7 +30,7 @@
    margin-top: 15px;
    display: inline-block;
    margin-top: 0;
-   padding: 10px;
+   padding: 15px !important;
    vertical-align: middle;
 }
 .top-bar3 {
@@ -69,13 +69,9 @@
  .btn {
    cursor: pointer;
    display: flex;
-   justify-content: center;
-   align-items: center;
    width: 30px;
    height: 30px;  
-   background-color: rgb(64, 145, 108);
-   color: #FCFFFC;
-   border-radius: 30px;
+   color: rgb(64, 145, 108);
    border: none;
    padding: 0px;
    margin-top: 14px;
@@ -112,14 +108,15 @@
  }
  .messageList {
   overflow-y: scroll;
-  height: 77%;
+  height: 88%;
+  position: relative;
  }
  .messageInputbox {
+  position: absolute;
   bottom: 0;
-  padding-left: 10px;
-  display: block;
-  width: 100%;
-  position: relative;
+  width: 95%;
+  margin-left: 4%;
+  padding-bottom: 0.5%;
  }
  .sender {
   text-align: right;
@@ -132,8 +129,8 @@
   margin-right: 15px;
   margin-top: 15px;
   margin-bottom: 8px;
-  border-radius: 20px;
-  padding: 7px;
+  border-radius: 5px;
+  padding: 5px;
  }
  .receiver-chat {
   display: inline-block;
@@ -141,8 +138,8 @@
   margin-left: 15px;
   margin-top: 15px;
   margin-bottom: 8px;
-  border-radius: 20px;
-  padding: 7px;
+  border-radius: 5px;
+  padding: 5px;
  }
  .no-content {
   font-size: 20px;
@@ -167,7 +164,7 @@
   width: 5%;
   height: 30px;  
   background-color: #FCFFFC;
-  color: #000;
+  color: rgb(27, 67, 50);
   border-radius: 30px;
   border: none;
   position: absolute;
@@ -190,4 +187,8 @@
     width: 100%;
     background-color: #FCFFFC;
     display: inline-block;
+}
+.messageSection {
+  flex-flow: column wrap;
+  overflow: hidden;
 }

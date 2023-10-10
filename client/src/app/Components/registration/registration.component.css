@@ -16,7 +16,7 @@ html {
     background-color: rgb(216, 243, 220);
     width: 32%;
     min-height: 85vh;
-    font-family: cursive;
+    font-family: sans-serif;
 }
 .right {
     flex-grow: "1";

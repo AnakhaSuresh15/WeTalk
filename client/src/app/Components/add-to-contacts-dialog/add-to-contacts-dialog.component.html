@@ -10,7 +10,7 @@
     </mat-error>
   </mat-form-field>
 </div>
-<div mat-dialog-actions>
+<div mat-dialog-actions class="bottom-margin">
   <button style="margin-right:20px" class="mat-dialog-close-button"
   [disabled]="!contact || contact.errors?.['userNameAvailable']" 
   mat-button [mat-dialog-close]="contact" (click)="add()">Add</button>

@@ -13,6 +13,8 @@ import { AddProfilePictureDialogComponent } from '../add-profile-picture-dialog/
 import { FirebaseApp } from 'firebase/app';
 import { Database  } from "firebase/database";
 import { FormGroup } from '@angular/forms';
+import { ConfirmLogoutDialogComponent } from '../confirm-logout-dialog/confirm-logout-dialog.component';
+
 
 @Component({
   selector: 'app-chat',
@@ -44,6 +46,7 @@ export class ChatComponent implements OnInit {
   app?: FirebaseApp;
   db?: Database;
   form?: FormGroup;
+  currentProPic = 'files0.032984442588890994%5Bobject%20File%5D?alt=media&token=dd4f44f7-6a83-45ec-a5a6-edbfa9af58aa';
   @ViewChild(MatMenuTrigger) triggerMenu!: MatMenuTrigger;
   constructor(private registrationService: RegistrationService,
     public dialog: MatDialog,
@@ -56,12 +59,28 @@ export class ChatComponent implements OnInit {
           localStorage.setItem('userData', JSON.stringify(this.userData));
           this.currentUsername = this.route.snapshot.paramMap.get('currentUsername');
           this.getContact();
+          this.userData.forEach((element: any) => {
+            if(element.uname === this.currentUsername) {
+              this.currentProPic = element.profilepic;
+              return true;
+            }
+            return false;
+          });
         });
       }
       else {
         this.userData = JSON.parse(localStorage.getItem('userData') || '{}');
         this.currentUsername = this.route.snapshot.paramMap.get('currentUsername');
-        if(this.userData) this.getContact();
+        if(this.userData) {
+          this.getContact();
+          this.userData.forEach((element: any) => {
+            if(element.uname === this.currentUsername) {
+              this.currentProPic = element.profilepic;
+              return true;
+            }
+            return false;
+          });
+        }
       }
     }
 
@@ -137,5 +156,8 @@ export class ChatComponent implements OnInit {
       if(this.proPic !== undefined) {
       }
     });
+  }
+  logout() {
+    this.dialog.open(ConfirmLogoutDialogComponent);
   }
 }

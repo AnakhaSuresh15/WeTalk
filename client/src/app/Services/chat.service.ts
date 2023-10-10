@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import io, { Socket } from "socket.io-client";
 import { DatePipe } from '@angular/common';
 
@@ -13,7 +13,6 @@ export class ChatService {
   public user$: BehaviorSubject<string> = new BehaviorSubject('');
   public socket: Socket;
   public socketId: string = '';
-  //public socketId$: BehaviorSubject<string> = new BehaviorSubject('');
   constructor(private datepipe: DatePipe) {
     this.socket = io('https://wetalk-cfuy.onrender.com/');
     this.socket.on('Id', (id)=>{
@@ -46,11 +45,4 @@ export class ChatService {
     
     return this.user$.asObservable();
   };
-  /*public getSocketId = () => {
-    this.socket.on('Id', (socketId: string) =>{
-      this.senderId = socketId;
-    });
-    
-    return this.socketId$.asObservable();
-  };*/
 }

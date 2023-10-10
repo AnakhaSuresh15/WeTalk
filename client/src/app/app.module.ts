@@ -26,6 +26,7 @@ import { FileUploadService } from './Services/file-upload.service';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireModule } from '@angular/fire/compat';
 import { DatePipe } from '@angular/common';
+import { ConfirmLogoutDialogComponent } from './Components/confirm-logout-dialog/confirm-logout-dialog.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { DatePipe } from '@angular/common';
         ChatComponent,
         AddToContactsDialogComponent,
         AddProfilePictureDialogComponent,
+        ConfirmLogoutDialogComponent,
     ],
     entryComponents: [AlertDialogComponent],
     imports: [

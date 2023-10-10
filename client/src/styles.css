@@ -4,7 +4,7 @@
 .mat-dialog-title {
     background-color: rgb(27, 67, 50);
     color:rgb(216, 243, 220);
-    font-family: cursive;
+    font-family: sans-serif;
 }
 .mat-dialog-close-button{
     background-color: rgb(27, 67, 50);
@@ -12,7 +12,11 @@
 }
 
 .custom-dialog-container, .mat-dialog-container {
-    padding: 10px !important;
+    padding: 8px !important;
     overflow-x: hidden !important;
     overflow-y: hidden !important;
+    border-radius: 5px !important;
+}
+.mat-dialog-title {
+    padding-left: 10px;
 }

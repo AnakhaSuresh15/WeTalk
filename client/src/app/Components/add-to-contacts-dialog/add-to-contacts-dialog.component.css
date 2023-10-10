@@ -1,3 +1,6 @@
 button {
     display: inline-block;
 }
+.bottom-margin {
+    margin-bottom: 1px;
+}

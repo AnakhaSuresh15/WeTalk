@@ -4,7 +4,7 @@ import { UntypedFormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { take } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { map, catchError } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
