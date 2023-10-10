@@ -52,7 +52,7 @@ export class ChatComponent implements OnInit {
     public route: ActivatedRoute,
     public http: HttpClient,
     public chatService: ChatService,) {
-      if(localStorage.getItem('userData') === 'null' || localStorage.getItem('userData') === 'undefined') {
+      if(!localStorage.getItem('userData') || localStorage.getItem('userData') === 'null' || localStorage.getItem('userData') === 'undefined') {
         registrationService.getUserData().pipe(take(1)).subscribe(data => {
           this.userData = data;
           localStorage.setItem('userData', JSON.stringify(this.userData));
@@ -87,7 +87,7 @@ export class ChatComponent implements OnInit {
     this.mobileView = (this.innerWidth<800) ? true : false;
   }
   getContact() {
-    this.http.get('http://localhost:8000/contacts/'+this.currentUsername).pipe(take(1)).subscribe((res: any) => {
+    this.http.get('http://127.0.0.1:3001/contacts/'+this.currentUsername).pipe(take(1)).subscribe((res: any) => {
         const contactData = res;
         this.contactUsernameList = contactData.map(function(obj: any) {
           return obj.contact;

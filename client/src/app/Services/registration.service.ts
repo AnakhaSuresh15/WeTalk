@@ -93,20 +93,20 @@ export class RegistrationService {
     return (this.getCurrentUsername()===userName);
   }
   insertUserData(userModel: any) {
-    return this.http.post('http://localhost:8000/adduser', userModel);
+    return this.http.post('http://127.0.0.1:3001/adduser', userModel);
   }
   getUserData() {
-    return this.http.get('http://localhost:8000/userdata').pipe(map((res: any) => {
+    return this.http.get('http://127.0.0.1:3001/userdata').pipe(map((res: any) => {
       return res;
     }));
   }
   getUserLoginValidation(data: any) {
-    return this.http.get('http://localhost:8000/getuservalidation', { params: data });
+    return this.http.post('http://127.0.0.1:3001/getuservalidation', data);
   }
   setUserData(data: any) { 
     this.userapiData.next(data);
   }
   addContact(username: any, contact: any) {
-    return this.http.post('http://localhost:8000/addcontact', { username, contact });
+    return this.http.post('http://127.0.0.1:3001/addcontact', { username, contact });
   }
 }

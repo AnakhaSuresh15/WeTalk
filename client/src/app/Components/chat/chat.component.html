@@ -9,7 +9,6 @@
             <button class="btn" mat-button [matMenuTriggerFor]="menu" style="float: right;"><mat-icon>more_vert</mat-icon></button>
             <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="addProfilePic()">Add Profile Photo</button>
-                <button mat-menu-item>Menu Item 2</button>
             </mat-menu>
         </div>
         <div class="left flex-child" *ngIf="(mobileView && !selectedContact) || !mobileView">
