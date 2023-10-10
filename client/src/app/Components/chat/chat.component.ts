@@ -87,7 +87,7 @@ export class ChatComponent implements OnInit {
     this.mobileView = (this.innerWidth<800) ? true : false;
   }
   getContact() {
-    this.http.get('http://127.0.0.1:3001/contacts/'+this.currentUsername).pipe(take(1)).subscribe((res: any) => {
+    this.http.get('https://wetalk-cfuy.onrender.com/contacts/'+this.currentUsername).pipe(take(1)).subscribe((res: any) => {
         const contactData = res;
         this.contactUsernameList = contactData.map(function(obj: any) {
           return obj.contact;

@@ -33,6 +33,6 @@ export class FileUploadService {
     ).subscribe();
   }
   setProfilePicId(username: string, url: any) {
-    return this.http.put('http://127.0.0.1:3001/setImageId/'+username, { url }, this.httpOptions);
+    return this.http.put('https://wetalk-cfuy.onrender.com/setImageId/'+username, { url }, this.httpOptions);
   }
 }
