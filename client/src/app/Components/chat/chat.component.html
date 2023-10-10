@@ -6,7 +6,7 @@
     <div class="content">
         <div class="top-bar1" >
             <img src="{{'https://firebasestorage.googleapis.com/v0/b/wetalk-firebase.appspot.com/o/' + 
-            currentProPic}}" style="width: 50px; height: 50px; border-radius: 50%; float: leftt; margin: 9px;"
+            currentProPic}}" style="width: 50px; height: 50px; border-radius: 50%; margin: 9px;"
             (click)="addProfilePic()" alt="Change profile photo">
             <button class="btn" mat-button [matMenuTriggerFor]="menu" style="float: right;"><mat-icon>more_vert</mat-icon></button>
             <mat-menu #menu="matMenu">
@@ -14,7 +14,8 @@
                 <button mat-menu-item (click)="logout()">Logout</button>
             </mat-menu>
         </div>
-        <div class="left flex-child" *ngIf="(mobileView && !selectedContact) || !mobileView">
+        <div class="left flex-child" *ngIf="(mobileView && !selectedContact) || (mobileView && showLeftPanelMobile) 
+        || !mobileView">
             <div class="top-bar3">
                 <mat-form-field class="search">
                     <input type="text" matInput placeholder="Search for contacts.." [(ngModel)]="searchWord"
@@ -47,11 +48,12 @@
                 </ul>
             </div>
         </div>
-        <div class="flex-child messageSection" *ngIf="selectedContact" [ngClass]="mobileView ? 'rightPanelMobile': 'right'">
+        <div class="flex-child messageSection" *ngIf="selectedContact && (!mobileView || (mobileView && !showLeftPanelMobile))" 
+        [ngClass]="mobileView ? 'rightPanelMobile': 'right'">
             <div class="top-bar4" style="max-height: 65px; padding: 5px;">
                 <div *ngIf="mobileView" style="float: left;">
                     <button class="btn" style="margin-top: 8px; margin-right: 12px; margin-left: 0px;" 
-                    mat-button (click)="addToContacts()">
+                    mat-button (click)="displayLeftPanelMobile()">
                         <mat-icon>arrow_back</mat-icon>
                     </button>
                 </div>
@@ -61,7 +63,7 @@
                 >{{selectedContact.fname}} {{selectedContact.lname}}</div>
                 <div *ngIf="mobileView" style="float: right;">
                     <img src="{{'https://firebasestorage.googleapis.com/v0/b/wetalk-firebase.appspot.com/o/' + 
-                    selectedContact.profilepic}}" style="width: 50px; height: 50px; border-radius: 50%;">
+                    selectedContact.profilepic}}" style="width: 50px; height: 50px; border-radius: 50%; margin-bottom: 20px;">
                 </div>
             </div>
             <div class="messageList">

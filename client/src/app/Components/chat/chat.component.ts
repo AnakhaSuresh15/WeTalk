@@ -46,6 +46,7 @@ export class ChatComponent implements OnInit {
   app?: FirebaseApp;
   db?: Database;
   form?: FormGroup;
+  showLeftPanelMobile = true;
   currentProPic = 'files0.032984442588890994%5Bobject%20File%5D?alt=media&token=dd4f44f7-6a83-45ec-a5a6-edbfa9af58aa';
   @ViewChild(MatMenuTrigger) triggerMenu!: MatMenuTrigger;
   constructor(private registrationService: RegistrationService,
@@ -126,6 +127,7 @@ export class ChatComponent implements OnInit {
   }
   setSelectedContact(selectedContact: User) {
     this.selectedContact = selectedContact;
+    if(this.mobileView) this.showLeftPanelMobile = false;
   }
   search() {
     this.searchList = [];
@@ -159,5 +161,8 @@ export class ChatComponent implements OnInit {
   }
   logout() {
     this.dialog.open(ConfirmLogoutDialogComponent);
+  }
+  displayLeftPanelMobile() {
+    this.showLeftPanelMobile = true;
   }
 }

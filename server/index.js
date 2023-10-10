@@ -22,7 +22,7 @@ app.get('/', function (req, res) {
 
 app.use( '/', userRouter);
 app.use( '/', contactRouter);
-app.use( '/',imageRouter);
+app.use( '/', imageRouter);
 
 const startServer = async () => {
   try {
