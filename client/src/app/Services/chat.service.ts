@@ -15,13 +15,12 @@ export class ChatService {
   public socketId: string = '';
   //public socketId$: BehaviorSubject<string> = new BehaviorSubject('');
   constructor(private datepipe: DatePipe) {
-    this.socket = io('http://localhost:3000');
+    this.socket = io('https://wetalk-cfuy.onrender.com/');
     this.socket.on('Id', (id)=>{
       this.socketId = id; 
     });
   }
 
-  //socket = io.connect('http://localhost:3000');
 
   public sendMessage(message: any, receiver: any, sender: any) {
     let currentDateTime =this.datepipe.transform((new Date), 'MM/dd/yyyy hh:mm:ss');

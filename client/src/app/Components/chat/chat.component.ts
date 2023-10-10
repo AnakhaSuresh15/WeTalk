@@ -1,21 +1,19 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { MatMenuModule, MatMenuTrigger} from '@angular/material/menu';
+import { MatMenuTrigger} from '@angular/material/menu';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs';
 import { RegistrationService } from 'src/app/Services/registration.service';
 import { User } from 'src/app/user';
 import { AddToContactsDialogComponent } from '../add-to-contacts-dialog/add-to-contacts-dialog.component';
-import * as io from 'socket.io-client';
 import { ChatService } from 'src/app/Services/chat.service';
 import { Message } from 'src/app/message';
 import { AddProfilePictureDialogComponent } from '../add-profile-picture-dialog/add-profile-picture-dialog.component';
-import { FirebaseApp, initializeApp } from 'firebase/app';
-import { Database, getDatabase, ref, set, onValue  } from "firebase/database";
-import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FirebaseApp } from 'firebase/app';
+import { Database  } from "firebase/database";
+import { FormGroup } from '@angular/forms';
 
-const SOCKET_ENDPOINT = 'localhost:3000';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -56,30 +54,25 @@ export class ChatComponent implements OnInit {
         registrationService.getUserData().pipe(take(1)).subscribe(data => {
           this.userData = data;
           localStorage.setItem('userData', JSON.stringify(this.userData));
+          this.currentUsername = this.route.snapshot.paramMap.get('currentUsername');
+          this.getContact();
         });
-        //registrationService.userapiData$.pipe(take(1)).subscribe(data => this.userData = data);
-        //this.userData.forEach(function(item: any){ delete item.pword1 });
       }
       else {
         this.userData = JSON.parse(localStorage.getItem('userData') || '{}');
+        this.currentUsername = this.route.snapshot.paramMap.get('currentUsername');
+        if(this.userData) this.getContact();
       }
-      this.currentUsername = this.route.snapshot.paramMap.get('currentUsername');
     }
 
   ngOnInit(): void {
     this.innerWidth = window.innerWidth;
     this.mobileView = (this.innerWidth<800) ? true : false;
-    this.getContact();
     this.chatService.getNewMessage().subscribe((data: any) => {
       const obj = JSON.parse(JSON.stringify(data));
       this.receiver = obj.receiver;
       this.messageList.push(obj);
     });
-    /*this.chatService.getUser().subscribe((data: any) => {
-      const obj = JSON.parse(JSON.stringify(data));
-      this.loggedUser = obj.currentuser;
-      this.selectedUser =  obj.selecteduser;
-    });*/
   }
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -114,7 +107,6 @@ export class ChatComponent implements OnInit {
   }
   setSelectedContact(selectedContact: User) {
     this.selectedContact = selectedContact;
-    //this.chatService.setUser(this.selectedContact.uname);
   }
   search() {
     this.searchList = [];
@@ -143,9 +135,6 @@ export class ChatComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.proPic = result.data;
       if(this.proPic !== undefined) {
-        /*this.registrationService.addContact(this.currentUsername, this.contact).subscribe((res: any) => {
-          this.getContact();
-        });*/
       }
     });
   }
