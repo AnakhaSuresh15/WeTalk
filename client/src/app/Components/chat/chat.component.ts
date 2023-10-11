@@ -54,10 +54,10 @@ export class ChatComponent implements OnInit {
     public route: ActivatedRoute,
     public http: HttpClient,
     public chatService: ChatService,) {
-      if(!localStorage.getItem('userData') || localStorage.getItem('userData') === 'null' || localStorage.getItem('userData') === 'undefined') {
+      if(!sessionStorage.getItem('userData') || sessionStorage.getItem('userData') === 'null' || sessionStorage.getItem('userData') === 'undefined') {
         registrationService.getUserData().pipe(take(1)).subscribe(data => {
           this.userData = data;
-          localStorage.setItem('userData', JSON.stringify(this.userData));
+          sessionStorage.setItem('userData', JSON.stringify(this.userData));
           this.currentUsername = this.route.snapshot.paramMap.get('currentUsername');
           this.getContact();
           this.userData.forEach((element: any) => {
@@ -70,7 +70,7 @@ export class ChatComponent implements OnInit {
         });
       }
       else {
-        this.userData = JSON.parse(localStorage.getItem('userData') || '{}');
+        this.userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
         this.currentUsername = this.route.snapshot.paramMap.get('currentUsername');
         if(this.userData) {
           this.getContact();

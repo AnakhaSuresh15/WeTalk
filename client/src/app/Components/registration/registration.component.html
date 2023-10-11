@@ -16,66 +16,66 @@
                 <div class="form-row">
                     <div class="form-group col-11">
                         <label for="fname" class="p2">First Name</label>
-                        <input type="text" required name="fname" 
+                        <input type="text" required name="fname" id="fname"
                         [class.is-invalid]="fname.invalid && fname.touched" 
                         [(ngModel)]="userModel.fname" #fname="ngModel" 
                         class="form-control form-control-sm">
-                        <label for="error" *ngIf="(fname.touched || regForm.submitted) && fname.errors?.['required']"
+                        <label for="fname" *ngIf="(fname.touched || regForm.submitted) && fname.errors?.['required']"
                         class="text-danger error">
                             First name is required.</label>
                     </div>
                     <br *ngIf="fname.valid || fname.untouched">
                     <div class="form-group col-11">
                         <label for="lname" class="p2">Last Name</label>
-                        <input type="text" required name="lname" 
+                        <input type="text" required name="lname" id="lname"
                         [class.is-invalid]="lname.invalid && lname.touched" 
                         [(ngModel)]="userModel.lname" #lname="ngModel" 
                         class="form-control form-control-sm"/>
-                        <label for="error" *ngIf="(lname.touched || regForm.submitted) && lname.errors?.['required']" 
+                        <label for="lname" *ngIf="(lname.touched || regForm.submitted) && lname.errors?.['required']" 
                         class="text-danger error">
                             Last name is required.</label>
                     </div>
                     <br *ngIf="lname.valid || lname.untouched">
                     <div class="form-group col-11">
                         <label for="uname" class="p2">Username</label>
-                        <input type="text" required name="uname" 
+                        <input type="text" required name="uname" id="uname"
                         [class.is-invalid]="uname.invalid && uname.touched" 
                         [(ngModel)]="userModel.uname" #uname="ngModel" 
                         class="form-control form-control-sm" [appValidateUserName]="'userNameCheck'"/>
-                        <label for="error" *ngIf="(uname.touched || regForm.submitted) && uname.errors?.['required']" 
+                        <label for="uname" *ngIf="(uname.touched || regForm.submitted) && uname.errors?.['required']" 
                         class="text-danger error">
                             Please provide a username.</label>
-                        <label for="error" *ngIf="uname.touched && uname.errors?.['userNameNotAvailable']" 
+                        <label for="uname" *ngIf="uname.touched && uname.errors?.['userNameNotAvailable']" 
                         class="text-danger error">
                         Username not available.</label>
                     </div>
                     <br *ngIf="uname.valid || uname.untouched">
                     <div class="form-group col-11">
-                        <label for="pword" class="p2">Password</label>
+                        <label for="pword1" class="p2">Password</label>
                         <input type="password" required name="pword1" appPasswordPattern
-                        [class.is-invalid]="pword1.invalid && pword1.touched" 
+                        [class.is-invalid]="pword1.invalid && pword1.touched" id="pword1"
                         [(ngModel)]="userModel.pword1" #pword1="ngModel" class="form-control form-control-sm"/>
                         <div *ngIf="pword1.errors && (pword1.invalid && pword1.touched)">
-                            <label for="error" *ngIf="(pword1.touched || regForm.submitted) && pword1.errors?.['required']" class="text-danger error">
+                            <label for="pword1" *ngIf="(pword1.touched || regForm.submitted) && pword1.errors?.['required']" class="text-danger error">
                                 Password cannot be blank.
                             </label>
-                            <label for="error" *ngIf="pword1.touched && pword1.errors?.['invalidPassword']" class="text-danger error">
+                            <label for="pword1" *ngIf="pword1.touched && pword1.errors?.['invalidPassword']" class="text-danger error">
                                 Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase
                                 letter, 1 number and 1 special character.</label>
                         </div>
                     </div>
                     <br *ngIf="pword1.valid || pword1.untouched">
                     <div class="form-group col-11">
-                        <label for="pword" class="p2">Confirm Password</label>
-                        <input type="password" required name="pword2" 
+                        <label for="pword2" class="p2">Confirm Password</label>
+                        <input type="password" required name="pword2" id="pword2"
                         [class.is-invalid]="pword2.invalid && pword2.touched" 
                         [(ngModel)]="userModel.pword2" #pword2="ngModel" 
                         class="form-control form-control-sm"/>
-                        <label for="error" *ngIf="(pword2.touched || regForm.submitted) && pword2.errors?.['required']"
+                        <label for="pword2" *ngIf="(pword2.touched || regForm.submitted) && pword2.errors?.['required']"
                         class="text-danger error">
                             Confirm Password is required.
                         </label>
-                        <label for="error" *ngIf="pword2.touched && pword2.errors?.['passwordMismatch']" 
+                        <label for="pword2" *ngIf="pword2.touched && pword2.errors?.['passwordMismatch']" 
                         class="text-danger error">
                             Passwords do not match.
                         </label>

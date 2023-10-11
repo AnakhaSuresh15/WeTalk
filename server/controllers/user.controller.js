@@ -30,8 +30,6 @@ const getUserValidation = async (req, res) => {
         const { username, password } = req.body;
         let user = await User.findOne({ uname: username  });
         if (!user) return res.status(400).send("User not found");
-        console.log(password);
-        console.log(user.pword1);
         const validPassword = (password === user.pword1);
         if (!validPassword) return res.status(400).send(false);
         else {

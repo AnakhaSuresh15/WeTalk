@@ -11,24 +11,24 @@
         <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
             <div class="form-row">
                 <div class="form-group col-11">
-                    <label for="fname" class="p2">Username</label>
-                    <input type="text" required name="uname" 
+                    <label for="uname" class="p2">Username</label>
+                    <input type="text" required name="uname" id="uname"
                     [class.is-invalid]="uname.invalid && uname.touched" 
                     [(ngModel)]="logindata.uname" #uname="ngModel" 
                     class="form-control form-control-sm">
-                    <label for="error" *ngIf="(uname.touched || loginForm.submitted) && uname.errors?.['required']"
+                    <label for="uname" *ngIf="(uname.touched || loginForm.submitted) && uname.errors?.['required']"
                     class="text-danger error">
                         Please enter the username.</label>
                 </div>
                 <br *ngIf="uname.valid || uname.untouched">
                 <br>
                 <div class="form-group col-11">
-                    <label for="pword" class="p2">Password</label>
-                    <input type="password" required name="pword1"
+                    <label for="pword1" class="p2">Password</label>
+                    <input type="password" required name="pword1" id="pword1"
                     [class.is-invalid]="pword.errors?.['required'] && pword.touched" 
                     [(ngModel)]="logindata.pword" #pword="ngModel" class="form-control form-control-sm"/>
                     <div *ngIf="pword.errors && (pword.invalid && pword.touched)">
-                        <label for="error" *ngIf="(pword.touched || loginForm.submitted) && pword.errors?.['required']" class="text-danger error">
+                        <label for="pword1" *ngIf="(pword.touched || loginForm.submitted) && pword.errors?.['required']" class="text-danger error">
                             Please enter the password.
                         </label>
                     </div>

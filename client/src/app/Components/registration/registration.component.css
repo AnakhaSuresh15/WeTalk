@@ -76,6 +76,10 @@ button {
 @media screen and (max-width: 800px) {
     .right {
         width: 80%;
+        height: 95%;
+    }
+    .rightcontent {
+        margin-bottom: 35px;
     }
     .left {
         display: none;

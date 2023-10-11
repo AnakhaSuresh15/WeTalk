@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { RegistrationService } from 'src/app/Services/registration.service';
 import { User } from 'src/app/user';
@@ -14,10 +14,15 @@ export class RegistrationComponent implements OnInit {
   innerWidth: any;
   mobileView: boolean = false;
   constructor(private router: Router,
-    private registrationService: RegistrationService) { }
+    private registrationService: RegistrationService,
+    private renderer: Renderer2) { }
 
   ngOnInit() {}
   
+  ngAfterViewInit() {
+    this.renderer.selectRootElement('#fname').focus();
+  } 
+
   onSubmit() {
     this.data = this.userModel;
     this.data.profilepic = 'files0.032984442588890994%5Bobject%20File%5D?alt=media&token=dd4f44f7-6a83-45ec-a5a6-edbfa9af58aa';
